@@ -6,7 +6,7 @@
     {{ method_field('PATCH') }}
     {!! csrf_field() !!}
     <div class="">
-      <label for="">Model Name</label><input type="text" name="typename" value="{{ $itemmodel->model_name }}">
+      <label for="">Model Name</label><input type="text" name="modelname" value="{{ $itemmodel->model_name }}">
     </div>
     <div class="">
       <select name="manufacturer">

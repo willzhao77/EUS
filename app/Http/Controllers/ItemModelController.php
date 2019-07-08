@@ -88,7 +88,15 @@ class ItemModelController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+      $itemmodel = ItemModel::find($id);
+      $itemmodel->model_name = $request->get('modelname');
+      $itemmodel->manufacturer_id = $request->get('manufacturer');
+
+      if ($itemmodel->save()) {
+            return redirect('itemmodel');
+        } else {
+            return redirect()->back()->withInput()->withErrors('更新失败！');
+        }
     }
 
     /**
@@ -99,6 +107,7 @@ class ItemModelController extends Controller
      */
     public function destroy($id)
     {
-        //
+      ItemModel::find($id)->delete();
+      return redirect()->back();
     }
 }
