@@ -53,7 +53,7 @@
       <div class="menu">
         <ul>
           <li>
-            <a href="#">Device Management</a>
+            <a href="{{ url('device') }}">Device Management</a>
           </li>
           <li>
             <a href="{{ url('type') }}">Device Type</a>
