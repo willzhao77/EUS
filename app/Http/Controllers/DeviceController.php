@@ -7,9 +7,21 @@ use App\Device;
 use App\Type;
 use App\ItemModel;
 use App\Manufacturer;
+use DB;
 
 class DeviceController extends Controller
 {
+
+
+    public function getItemModels($id)
+    {
+      $itemmodels = DB::table("model")->where("model_id",$id)->pluck("model_name","model_id");
+      return json_encode($itemmodels);
+    }
+
+
+
+
     /**
      * Display a listing of the resource.
      *
