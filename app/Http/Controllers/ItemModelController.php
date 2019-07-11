@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\ItemModel;
 use App\Manufacturer;
+use App\Type;
 
 class ItemModelController extends Controller
 {
@@ -15,7 +16,7 @@ class ItemModelController extends Controller
      */
     public function index()
     {
-      return view('/device/showitemmodel')->with('itemmodels', ItemModel::all());
+      return view('/device/showitemmodel')->with('itemmodels', ItemModel::paginate(10));
     }
 
     /**
@@ -25,7 +26,7 @@ class ItemModelController extends Controller
      */
     public function create()
     {
-      return view('/device/createmodel')->with('manus', Manufacturer::all());
+      return view('/device/createmodel')->with('manus', Manufacturer::all())->with('types', Type::all());
     }
 
     /**
@@ -39,6 +40,7 @@ class ItemModelController extends Controller
       $this->validate($request, [
           'modelname' => 'required',
           'manufacturer'=> 'required',
+          'devicetype'=> 'required',
       ]);
 
 
@@ -46,6 +48,7 @@ class ItemModelController extends Controller
       $itemmodel = new ItemModel;
       $itemmodel->model_name = $request->get('modelname');
       $itemmodel->manufacturer_id = $request->get('manufacturer');
+      $itemmodel->model_type = $request->get('devicetype');
 
 
 
@@ -76,7 +79,7 @@ class ItemModelController extends Controller
      */
     public function edit($id)
     {
-      return view("/device/edititemmodel")->with('itemmodel', ItemModel::find($id))->with('manus', Manufacturer::all());
+      return view("/device/edititemmodel")->with('itemmodel', ItemModel::find($id))->with('manus', Manufacturer::all())->with('types', Type::all());
     }
 
     /**
@@ -91,6 +94,7 @@ class ItemModelController extends Controller
       $itemmodel = ItemModel::find($id);
       $itemmodel->model_name = $request->get('modelname');
       $itemmodel->manufacturer_id = $request->get('manufacturer');
+      $itemmodel->model_type = $request->get('devicetype');
 
       if ($itemmodel->save()) {
             return redirect('itemmodel');

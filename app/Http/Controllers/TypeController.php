@@ -15,7 +15,7 @@ class TypeController extends Controller
     public function index()
     {
       //show all types
-      return view('/device/showtype')->with('types', Type::all());
+      return view('/device/showtype')->with('types', Type::paginate(10));
     }
 
     /**

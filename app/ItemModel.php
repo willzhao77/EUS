@@ -13,4 +13,10 @@ class ItemModel extends Model
     {
         return $this->hasOne('App\Manufacturer', 'manufacturer_id', 'manufacturer_id');
     }
+
+
+  public function itemtype()
+    {
+        return $this->hasOne('App\Type', 'type_id', 'model_type');
+    }
 }

@@ -14,7 +14,7 @@ class ManuController extends Controller
      */
     public function index()
     {
-      return view('/device/showmanufacturer')->with('manus', Manufacturer::all());
+      return view('/device/showmanufacturer')->with('manus', Manufacturer::paginate(10));
     }
 
     /**

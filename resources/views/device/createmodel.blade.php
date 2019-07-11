@@ -17,6 +17,17 @@
         @endforeach
       </select>
     </div>
+    <div class="">
+      <select name="devicetype">
+        @foreach ($types as $type)
+
+        <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
+
+        @endforeach
+      </select>
+    </div>
+
+
 
 
     <button class="btn btn-lg btn-info">Add New</button>

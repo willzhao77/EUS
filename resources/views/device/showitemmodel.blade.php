@@ -6,14 +6,19 @@
     <table border = "1px">
       <tr>
         <th>Model ID</th>
+        <th>Model Type</th>
         <th>Model Name</th>
         <th>Manufacturer Name</th>
         <th>Modify</th>
       </tr>
+      <?php $id = 1; ?>
       @foreach ($itemmodels as $itemmodel)
       <tr>
         <td>
-          <P>{{ $itemmodel->model_id }}</P>
+          <P>{{ $id++  }}</P>
+        </td>
+        <td>
+          <P>{{ $itemmodel->itemtype->type_name }}</P>
         </td>
         <td>
           <P>{{ $itemmodel->model_name }}</P>
@@ -29,10 +34,11 @@
               {{ csrf_field() }}
               <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?');">Delete</button>
           </form>
+
         </td>
       </tr>
       @endforeach
     </table>
-
+    {{ $itemmodels->links() }}
   </div>
 @endsection

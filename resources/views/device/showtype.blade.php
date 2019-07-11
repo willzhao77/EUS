@@ -9,10 +9,11 @@
         <th>Type Name</th>
         <th>Modify</th>
       </tr>
+      <?php $id = 1; ?>
       @foreach ($types as $type)
       <tr>
         <td>
-          <P>{{ $type->type_id }}</P>
+          <P>{{ $id++}}</P>
         </td>
         <td>
           <P>{{ $type->type_name }}</P>
@@ -29,6 +30,6 @@
       </tr>
       @endforeach
     </table>
-
+    {{ $types->links() }}
   </div>
 @endsection

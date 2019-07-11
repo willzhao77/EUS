@@ -25,4 +25,4 @@ Route::resource('/device', 'DeviceController');
 
 
 // for Ajax to get related product models related to the manufacturer
-Route::get('device/getitemmodels/{id}','DeviceController@getItemModels');
+Route::get('device/getitemmodels/{id}/{typd_id}','DeviceController@getItemModels');

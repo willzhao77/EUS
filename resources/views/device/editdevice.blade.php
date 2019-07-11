@@ -2,64 +2,66 @@
 @section('content')
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 
-
 <div class="">
-  <form action="{{ url('device') }}" method="POST" enctype="multipart/form-data">
+  <form action="{{ url('device/'.$device->device_id) }}" method="POST" enctype="multipart/form-data">
+    {{ method_field('PATCH') }}
     {!! csrf_field() !!}
     <div class="">
-      <label for="">New Device Name</label><input type="text" name="devicename" value="">
+      <label for="">Device Name</label><input type="text" name="devicename" value="{{ $device->device_name }}">
     </div>
 
     <div class="">
       <select name="devicetype">
         @foreach ($types as $type)
 
-        <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
+        <option value="{{ $type->type_id }}" {{ $type->type_id == $device->device_type ? 'selected' :'' }}>{{ $type->type_name }}</option>
 
         @endforeach
       </select>
     </div>
+
 
     <div class="">
       <select name="itemmodel">
-        <option>--Item Model--</option>
-        <!-- @foreach ($itemmodels as $itemmodel)
+        @foreach ($itemmodels as $itemmodel)
 
-        <option value="{{ $itemmodel->model_id }}">{{ $itemmodel->model_name }}</option>
-
-        @endforeach -->
-      </select>
-    </div>
-
-
-    <div class="">
-      <label for="">Device S/N</label><input type="text" name="devicesn" value="">
-    </div>
-
-
-    <div class="">
-      <select name="manufacturer">
-        <option value="">--- Select Manufacturer ---</option>
-        @foreach ($manus as $manu)
-
-        <option value="{{ $manu->manufacturer_id }}">{{ $manu->manufacturer_name }}</option>
+        <option value="{{ $itemmodel->model_id }}" {{ $itemmodel->model_id == $device->device_model ? 'selected' :'' }}>{{ $itemmodel->model_name }}</option>
 
         @endforeach
       </select>
     </div>
 
     <div class="">
-      <label for="">User</label><input type="text" name="deviceuser" value="">
+      <label for="">Device SN</label><input type="text" name="devicesn" value="{{ $device->device_sn }}">
     </div>
 
     <div class="">
-      <label for="">Notes</label><input type="text" name="devicenote" value="">
+      <select name="manufacturer">
+        @foreach ($manus as $manu)
+
+        <option value="{{ $manu->manufacturer_id }}" {{ $manu->manufacturer_id == $device->device_manufacturer ? 'selected' :'' }}>{{ $manu->manufacturer_name }}</option>
+
+        @endforeach
+      </select>
     </div>
 
+    <div class="">
+      <label for="">Device User</label><input type="text" name="deviceuser" value="{{ $device->device_user }}">
+    </div>
 
-    <button class="btn btn-lg btn-info">Add New</button>
+    <div class="">
+      <label for="">Device Note</label><input type="text" name="devicenote" value="{{ $device->device_note }}">
+    </div>
+
+    <input type="hidden" name="itemmodel_id" class="form-control" style="width: 300px;" value="{{ $itemmodel->model_id }}">
+    <button type="submit" class="btn btn-lg btn-success col-lg-12">Submit</button>
   </form>
 </div>
+
+
+
+
+
 
 
 
@@ -124,14 +126,6 @@
             });
     });
     </script>
-
-
-
-
-
-
-
-
 
 
 

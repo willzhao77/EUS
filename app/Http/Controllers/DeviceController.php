@@ -12,10 +12,11 @@ use DB;
 class DeviceController extends Controller
 {
 
-
-    public function getItemModels($id)
+    // used for dependent dropdown
+    //response AJAX reuqests
+    public function getItemModels($manu_id, $type_id)
     {
-      $itemmodels = DB::table("model")->where("model_id",$id)->pluck("model_name","model_id");
+      $itemmodels = DB::table("model")->where("manufacturer_id",$manu_id)->where("model_type",$type_id)->pluck("model_name","model_id");
       return json_encode($itemmodels);
     }
 
@@ -29,7 +30,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-      return view('/device/showdevice')->with('devices', Device::all());
+      return view('/device/showdevice')->with('devices', Device::paginate(10));
     }
 
     /**
@@ -99,7 +100,17 @@ class DeviceController extends Controller
      */
     public function edit($id)
     {
-        //
+      //get related type ID and device_manufacturer ID
+      $device_details = Device::find($id);
+      $device_type = $device_details->device_type;
+      $device_manu= $device_details->device_manufacturer;
+
+      //return related model (where multiple AND condition)
+      return view("/device/editdevice")->with('device', $device_details)->with('manus', Manufacturer::all())->with('types', Type::all())
+                                        // ->with('itemmodels', ItemModel::all());
+                                        // ->with('itemmodels', ItemModel::where('model_type', '=',$device_type)
+                                        ->with('itemmodels', ItemModel::where(['model_type' =>$device_type,'manufacturer_id' =>$device_manu])
+                                        ->get());
     }
 
     /**
@@ -111,7 +122,34 @@ class DeviceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+      $this->validate($request, [
+          'devicename' => 'required',
+          'devicetype'=> 'required',
+          'itemmodel'=> 'required',
+          'devicesn'=> 'required',
+          'manufacturer'=> 'required',
+          'deviceuser'=> 'required',
+
+      ]);
+
+
+      $device = Device::find($id);
+      $device->device_name = $request->get('devicename');
+      $device->device_type = $request->get('devicetype');
+      $device->device_model = $request->get('itemmodel');
+      $device->device_sn = $request->get('devicesn');
+      $device->device_manufacturer = $request->get('manufacturer');
+      $device->device_user = $request->get('deviceuser');
+      $device->device_note = $request->get('devicenote');
+
+
+      if ($device->save())
+      {
+        return redirect('device');
+      } else {
+        return redirect()->back()->withInput()->withErrors('Update Type faild');
+      }
     }
 
     /**
@@ -122,6 +160,7 @@ class DeviceController extends Controller
      */
     public function destroy($id)
     {
-        //
+      Device::find($id)->delete();
+      return redirect()->back();
     }
 }

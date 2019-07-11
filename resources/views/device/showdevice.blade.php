@@ -15,10 +15,11 @@
         <th>Notes</th>
         <th>Modify</th>
       </tr>
+      <?php $id = 1; ?>
       @foreach ($devices as $device)
       <tr>
         <td>
-          <P>{{ $device->device_id }}</P>
+          <P>{{ $id++ }}</P>
         </td>
         <td>
           <P>{{ $device->device_name }}</P>
@@ -53,6 +54,6 @@
       </tr>
       @endforeach
     </table>
-
+    {{ $devices->links() }}
   </div>
 @endsection

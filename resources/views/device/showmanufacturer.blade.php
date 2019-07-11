@@ -9,10 +9,11 @@
         <th>Manufacturer Name</th>
         <th>Modify</th>
       </tr>
+      <?php $id = 1; ?>
       @foreach ($manus as $manu)
       <tr>
         <td>
-          <P>{{ $manu->manufacturer_id }}</P>
+          <P>{{ $id++ }}</P>
         </td>
         <td>
           <P>{{ $manu->manufacturer_name }}</P>
@@ -29,6 +30,6 @@
       </tr>
       @endforeach
     </table>
-
+    {{ $manus->links() }}
   </div>
 @endsection

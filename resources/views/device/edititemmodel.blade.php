@@ -19,6 +19,16 @@
     </div>
 
 
+    <div class="">
+      <select name="devicetype">
+        @foreach ($types as $type)
+
+        <option value="{{ $type->type_id }}" {{ $type->type_id == $itemmodel->model_type ? 'selected' :'' }}>{{ $type->type_name }}</option>
+
+        @endforeach
+      </select>
+    </div>
+
     <input type="hidden" name="itemmodel_id" class="form-control" style="width: 300px;" value="{{ $itemmodel->model_id }}">
     <button type="submit" class="btn btn-lg btn-success col-lg-12">Submit</button>
   </form>
