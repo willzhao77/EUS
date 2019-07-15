@@ -3,17 +3,19 @@
 @section('content')
   <div class="">
     <a href="{{ url('/device/create') }}" class="btn btn-lg btn-primary">Create Model</a>
-    <table border = "1px">
+    <table border = "1px" class="table table-striped">
       <tr>
-        <th>Device ID</th>
+        <thead>
+        <th>ID</th>
         <th>Device Name</th>
         <th>Device Type</th>
         <th>Device Model</th>
         <th>Device S/N</th>
-        <th>Manufacturer Name</th>
+        <th>Brand</th>
         <th>User</th>
         <th>Notes</th>
         <th>Modify</th>
+        </thead>
       </tr>
       <?php $id = 1; ?>
       @foreach ($devices as $device)
