@@ -11,6 +11,7 @@
 |
 */
 Route::get('/device/filter', 'DeviceController@filter');
+Route::get('/device/selectpage', 'DeviceController@selectpage');
 
 
 

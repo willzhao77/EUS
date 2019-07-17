@@ -21,6 +21,7 @@ class DeviceController extends Controller
     }
 
 
+
     public function filter(Request $request)
     {
 
@@ -29,12 +30,12 @@ class DeviceController extends Controller
             ->join('type', 'device.device_type', '=', 'type.type_id')
             ->join('manufacturer', 'device.device_manufacturer', '=', 'manufacturer.manufacturer_id')
             ->join('model', 'device.device_model', '=', 'model.model_id')
-            ->select('device.device_name', 'type.type_name', 'model.model_name', 'device.device_sn', 'manufacturer.manufacturer_name','device.device_user', 'device.device_name')
-            ->where('device_type','=',$request->devicetype)->get();
+            ->select('device.device_id','device.device_name', 'type.type_name', 'model.model_name', 'device.device_sn', 'manufacturer.manufacturer_name','device.device_user', 'device.device_name', 'device.device_note')
+            ->where('device_type','=',$request->devicetype)->paginate(3);
 
-
-
-    return json_encode($products);
+    // return json_encode($products);
+            // return view('/device/presult')->with('devices', $products)->render();
+            return view('/device/presult2')->with('devices', $products);
     }
 
 
@@ -47,7 +48,7 @@ class DeviceController extends Controller
      */
     public function index()
     {
-      return view('/device/showdevice')->with('types', Type::all())->with('devices', Device::paginate(10));
+      return view('/device/showdevice')->with('types', Type::all())->with('devices', Device::paginate(3));
     }
 
     /**
