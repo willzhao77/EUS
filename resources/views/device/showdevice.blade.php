@@ -8,6 +8,7 @@
   <div class="">
     <label for="">Filter</label>
     <select name="devicetype" id='devicetype'>
+      <option value="0">All</option>
       @foreach ($types as $type)
 
       <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>

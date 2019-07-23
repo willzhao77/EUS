@@ -24,18 +24,29 @@ class DeviceController extends Controller
 
     public function filter(Request $request)
     {
+      //select all types
+      if($request->devicetype == 0)
+        {
+          $products=DB::table('device')
+                ->join('type', 'device.device_type', '=', 'type.type_id')
+                ->join('manufacturer', 'device.device_manufacturer', '=', 'manufacturer.manufacturer_id')
+                ->join('model', 'device.device_model', '=', 'model.model_id')
+                ->select('device.device_id','device.device_name', 'type.type_name', 'model.model_name', 'device.device_sn', 'manufacturer.manufacturer_name','device.device_user', 'device.device_name', 'device.device_note')
+                ->paginate(3);
+        }else {
+        // select specified type
+        $products=DB::table('device')
+                ->join('type', 'device.device_type', '=', 'type.type_id')
+                ->join('manufacturer', 'device.device_manufacturer', '=', 'manufacturer.manufacturer_id')
+                ->join('model', 'device.device_model', '=', 'model.model_id')
+                ->select('device.device_id','device.device_name', 'type.type_name', 'model.model_name', 'device.device_sn', 'manufacturer.manufacturer_name','device.device_user', 'device.device_name', 'device.device_note')
+                ->where('device_type','=',$request->devicetype)->paginate(3);
 
-    // $products=DB::table('device')->where('device_type','=',$request->devicetype)->get();
-    $products=DB::table('device')
-            ->join('type', 'device.device_type', '=', 'type.type_id')
-            ->join('manufacturer', 'device.device_manufacturer', '=', 'manufacturer.manufacturer_id')
-            ->join('model', 'device.device_model', '=', 'model.model_id')
-            ->select('device.device_id','device.device_name', 'type.type_name', 'model.model_name', 'device.device_sn', 'manufacturer.manufacturer_name','device.device_user', 'device.device_name', 'device.device_note')
-            ->where('device_type','=',$request->devicetype)->paginate(3);
+        // return json_encode($products);
+                // return view('/device/presult')->with('devices', $products)->render();
+              }
 
-    // return json_encode($products);
-            // return view('/device/presult')->with('devices', $products)->render();
-            return view('/device/presult2')->with('devices', $products);
+      return view('/device/presult2')->with('devices', $products);
     }
 
 
