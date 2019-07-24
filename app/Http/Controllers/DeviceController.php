@@ -20,6 +20,17 @@ class DeviceController extends Controller
       return json_encode($itemmodels);
     }
 
+    public function search(Request $request)
+    {
+      $products=DB::table('device')
+              ->join('type', 'device.device_type', '=', 'type.type_id')
+              ->join('manufacturer', 'device.device_manufacturer', '=', 'manufacturer.manufacturer_id')
+              ->join('model', 'device.device_model', '=', 'model.model_id')
+              ->select('device.device_id','device.device_name', 'type.type_name', 'model.model_name', 'device.device_sn', 'manufacturer.manufacturer_name','device.device_user', 'device.device_name', 'device.device_note')
+              // ->where('type_name','%',$request->devicetype, '%')->paginate(3);
+              ->where('type_name','LIKE' ,'%' . $request->devicetype. '%')->paginate(3);
+              return view('/device/presult2')->with('devices', $products);
+    }
 
 
     public function filter(Request $request)
