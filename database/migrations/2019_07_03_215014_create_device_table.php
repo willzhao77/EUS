@@ -15,13 +15,13 @@ class CreateDeviceTable extends Migration
     {
         Schema::create('device', function (Blueprint $table) {
           $table->bigIncrements('device_id');
-          $table->integer('type');
+          $table->integer('device_type');
           $table->integer('device_manufacturer');
-          $table->string('name');
-          $table->string('serial_number');
+          $table->string('device_name');
+          $table->string('device_sn');
           $table->integer('device_model');
-          $table->string('user');
-          $table->text('notes');
+          $table->string('device_user');
+          $table->text('device_note');
           $table->timestamps();
         });
     }

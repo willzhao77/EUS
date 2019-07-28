@@ -14,9 +14,10 @@ class CreateModelTable extends Migration
     public function up()
     {
         Schema::create('model', function (Blueprint $table) {
-          $table->increments('id');
+          $table->increments('model_id');
           $table->string('model_name');
           $table->integer('manufacturer_id');
+          $table->integer('model_type');
           $table->timestamps();
         });
     }

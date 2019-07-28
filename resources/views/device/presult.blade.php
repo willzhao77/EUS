@@ -23,16 +23,16 @@
         <P>{{ $device->device_name }}</P>
       </td>
       <td>
-        <P>{{ $device->type_name }}</P>
+        <P>{{ $device->type->type_name }}</P>
       </td>
       <td>
-        <P>{{ $device->model_name }}</P>
+        <P>{{ $device->itemmodel->model_name }}</P>
       </td>
       <td>
         <P>{{ $device->device_sn }}</P>
       </td>
       <td>
-        <P>{{ $device->manufacturer_name }}</P>
+        <P>{{ $device->manu->manufacturer_name }}</P>
       </td>
       <td>
         <P>{{ $device->device_user }}</P>
