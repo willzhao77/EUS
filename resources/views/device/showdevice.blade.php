@@ -10,7 +10,7 @@
       <div class="">
         <label for="">Deivce Type</label><input type="text" id="devicetype" value="">
       </div>
-      <div class="">
+      <!-- <div class="">
         <label for="">Deivce Model</label><input type="text" id="devicemodel" value="">
       </div>
         <div class="">
@@ -24,7 +24,7 @@
       </div>
       <div class="">
         <label for="">Notes</label><input type="text" id="devicenotes" value="">
-      </div>
+      </div> -->
       <button class="btn btn-lg btn-info" id="search">Search</button>
 
     </div>
@@ -42,7 +42,7 @@
     </select>
   </div>
   <div class="">
-    <a href="{{ url('/device/create') }}" class="btn btn-lg btn-primary">Create Model</a>
+    <a href="{{ url('/device/create') }}" class="btn btn-lg btn-primary">New Device</a>
     <div class="content1">
       @include('/device/presult')
     </div>
@@ -70,7 +70,7 @@
     function getProducts(page){
       var typeid = jQuery('select[name="itemtype"]').val();
       $.ajax({
-        url:'/device/filter?page=' + page,
+        url:'./device/filter?page=' + page,
         data:{'devicetype': typeid},
       }).done(function(data){
         // console.log(data);
@@ -88,7 +88,7 @@
 
     $.ajax({
     type : 'get',
-    url : '/device/filter',
+    url : './device/filter',
     data:{'devicetype':$value},
     success:function(data){
 
@@ -114,7 +114,7 @@
 
     $.ajax({
     type : 'get',
-    url : '/device/search',
+    url : './device/search',
     data:{'devicename':devicename, 'devicetype':devicetype},
     success:function(data){
 

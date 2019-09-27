@@ -28,7 +28,9 @@ class DeviceController extends Controller
               ->join('model', 'device.device_model', '=', 'model.model_id')
               ->select('device.device_id','device.device_name', 'type.type_name', 'model.model_name', 'device.device_sn', 'manufacturer.manufacturer_name','device.device_user', 'device.device_name', 'device.device_note')
               // ->where('type_name','%',$request->devicetype, '%')->paginate(3);
-              ->where('type_name','LIKE' ,'%' . $request->devicetype. '%')->paginate(3);
+              ->where('type_name','LIKE' ,'%' . $request->devicetype. '%')
+              ->where('device_name','LIKE' ,'%' . $request->devicename. '%')
+              ->paginate(3);
               return view('/device/presult2')->with('devices', $products);
     }
 

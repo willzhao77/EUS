@@ -7,7 +7,7 @@
   <form action="{{ url('device') }}" method="POST" enctype="multipart/form-data">
     {!! csrf_field() !!}
     <div class="">
-      <label for="">New Device Name</label><input type="text" name="devicename" value="">
+      <label for="">New Device Name</label><label for="" style="color:red">*</label><input type="text" name="devicename" value="">
     </div>
 
     <div class="">
@@ -18,22 +18,24 @@
 
         @endforeach
       </select>
+      <label for="" style="color:red">*</label>
     </div>
 
     <div class="">
       <select name="itemmodel">
         <option>--Item Model--</option>
-        <!-- @foreach ($itemmodels as $itemmodel)
+        @foreach ($itemmodels as $itemmodel)
 
         <option value="{{ $itemmodel->model_id }}">{{ $itemmodel->model_name }}</option>
 
-        @endforeach -->
+        @endforeach
       </select>
+      <label for="" style="color:red">*</label>
     </div>
 
 
     <div class="">
-      <label for="">Device S/N</label><input type="text" name="devicesn" value="">
+      <label for="">Device S/N</label><label for="" style="color:red">*</label><input type="text" name="devicesn" value="">
     </div>
 
 
@@ -46,14 +48,16 @@
 
         @endforeach
       </select>
+      <label for="" style="color:red">*</label>
     </div>
 
     <div class="">
-      <label for="">User</label><input type="text" name="deviceuser" value="">
+      <label for="">User</label><label for="" style="color:red">*</label><input type="text" name="deviceuser" value="">
     </div>
 
     <div class="">
-      <label for="">Notes</label><input type="text" name="devicenote" value="">
+
+      <label for="">Notes</label><label for="" style="color:red">*</label><input type="text" name="devicenote" value="">
     </div>
 
 
@@ -76,7 +80,7 @@
             if(manuID)
             {
                jQuery.ajax({
-                  url : '/device/getitemmodels/' + manuID +'/' + typeID ,
+                  url : './getitemmodels/' + manuID +'/' + typeID ,
                   type : "GET",
                   dataType : "json",
                   success:function(data)
@@ -104,7 +108,7 @@
                if(manuID)
                {
                   jQuery.ajax({
-                     url : '/device/getitemmodels/' + manuID +'/' + typeID ,
+                     url : './getitemmodels/' + manuID +'/' + typeID ,
                      type : "GET",
                      dataType : "json",
                      success:function(data)
